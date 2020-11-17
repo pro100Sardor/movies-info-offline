@@ -1,19 +1,33 @@
-var elPageMain = document.querySelector('#pageMain');
+var elPageMain = $_ ('#pageMain');
 
-// for (var i = 0; i < 10; i++) {
-//   // console.log(kinolar[0].cast);
-//   var newTitle = createElement('div', 'text-center', kinolar[i].title);
-//   elPageMain.appendChild(newTitle);
-// }
+kinolar.forEach(function(kino) {
+  var cinemaContainer = document.createElement('div');
+  cinemaContainer.setAttribute('class', 'd-flex w-50 mb-4');
 
-kinolar.splice(0, 10).forEach(function(kino) {
-  var newTitle = createElement('div', 'text-center', kino.title);
-  var newYear = createElement('div', 'text-center', kino.year);
-  var newCast = createElement('div', 'text-center', kino.cast);
-  var newGenres = createElement('div', 'text-center', kino.genres);
-  elPageMain.appendChild(newTitle);
-  elPageMain.appendChild(newYear);
-  elPageMain.appendChild(newCast);
-  elPageMain.appendChild(newGenres);
+  var cinemaList = document.createElement('ul');
+  cinemaList.setAttribute('class', 'list-unstyled ml-4');
+
+  function createCinemaItem (itemFeatureTitle, itemFeatureText) {
+    var item = document.createElement('li');
+    item.setAttribute('class', 'mb-4');
+
+    var cinemaItemFeatureTitle = document.createElement('span');
+    cinemaItemFeatureTitle.setAttribute('class', 'font-weight-bold');
+    cinemaItemFeatureTitle.textContent = itemFeatureTitle;
+
+    item.appendChild(cinemaItemFeatureTitle);
+    item.innerHTML += itemFeatureText;
+    return item;
+  }
+
+  var keys = Object.keys(kino);
+  cinemaList.appendChild(createCinemaItem(`${keys[0]}: `, kino.title));
+  cinemaList.appendChild(createCinemaItem(`${keys[1]}: `, kino.year));
+  cinemaList.appendChild(createCinemaItem(`${keys[2]}: `, kino.cast));
+  cinemaList.appendChild(createCinemaItem(`${keys[3]}: `, kino.genres));
+
+  cinemaContainer.appendChild(cinemaList);
+
+  elPageMain.appendChild(cinemaContainer);
 });
 
